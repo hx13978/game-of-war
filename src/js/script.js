@@ -66,16 +66,63 @@ class Game {
             this.player1Hand.unshift(player1Card);
             this.player1Hand.unshift(player2Card);
             console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
-            console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.")
+            console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
         }
         else if (player1Card.score < player2Card.score) {
             this.player2Hand.unshift(player2Card);
             this.player2Hand.unshift(player1Card);
             //      console.log("2 " + player2Card.score);
-            console.log("You played a " + player1Card.rank + " of " + player2Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
-            console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.")
+            console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
+            console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
+        }
+        else if (player1Card.score = player2Card.score) {
+            this.tieBreaker(player1Card, player2Card);
         }
     }
+    tieBreaker(player1Card, player2Card) {
+        if (this.player1Hand.length < 4) {
+            this.player2Hand.unshift(player1Card);
+            this.player2Hand.unshift(player2Card);
+            this.player2Hand = this.player2Hand.concat(this.player1Hand);
+            this.player1Hand = [];
+            console.log("You don't have enough cards to play the tiebreaker.");
+            console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
+        }
+        else if (this.player2Hand.length < 4) {
+            this.player1Hand.unshift(player1Card);
+            this.player1Hand.unshift(player2Card);
+            this.player1Hand = this.player1Hand.concat(this.player2Hand);
+            this.player2Hand = [];
+            console.log("The computer does not have enough cards to play the tiebreaker.");
+            console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
+        }
+        else {
+            let player1Index = this.player1Hand.length - 5;
+            let player1Tie = this.player1Hand[player1Index];
+            console.log(player1Tie);
+            let player2Index = this.player2Hand.length - 5;
+            let player2Tie = this.player2Hand[player2Index];
+            console.log(player2Tie);
+            if (player1Tie.score > player2Tie.score) {
+                this.player1Hand.unshift(player1Card);
+                this.player1Hand.unshift(player2Card);
+                this.player1Hand = this.player1Hand.concat(this.player2Hand.splice(player2Index, 4));
+                console.log("You played a " + player1Tie.rank + " of " + player1Tie.suit + " and the computer played a " + player2Tie.rank + " of " + player2Tie.suit);
+                console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
+            }
+            else if (player1Tie.score < player2Tie.score) {
+                this.player2Hand.unshift(player1Card);
+                this.player2Hand.unshift(player2Card);
+                this.player2Hand = this.player2Hand.concat(this.player1Hand.splice(player1Index, 4));
+                console.log("You played a " + player1Tie.rank + " of " + player1Tie.suit + " and the computer played a " + player2Tie.rank + " of " + player2Tie.suit);
+                console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
+            }
+            else if (player1Tie.score = player2Tie.score) {
+                this.tieBreaker(player1Tie, player2Tie);
+            }
+        }
+    }
+}
     play() {
         while (this.player1Hand.length > 0 && this.player2Hand.length > 0) {
             let player1Card = this.player1Hand.pop();
