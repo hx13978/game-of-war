@@ -45,49 +45,54 @@ class Deck {
     }
 }
 
-deck = new Deck();
-//console.log(deck.cards.length);
 
+class Game {
+    constructor() {
+        this.deck = new Deck();
 
-//creating an array for each of the players to hold their cards
-let player1Hand = [];
-let player2Hand = [];
+        //creating an array for each of the players to hold their cards
+        this.player1Hand = [];
+        this.player2Hand = [];
 
-//splitting suffled deck into two hands
-player1Hand = deck.cards.slice(0,26);
-//console.log(player1Hand.length);
-player2Hand = deck.cards.slice(26,52);
-//console.log(player2Hand.length);
+        //splitting suffled deck into two hands
+        this.player1Hand = this.deck.cards.slice(0, 26);
+        //console.log(player1Hand.length);
+        this.player2Hand = this.deck.cards.slice(26, 52);
+        //console.log(player2Hand.length);
+    }
+    //logic to compare cards
+    compareCards(player1Card, player2Card) {
+        if (player1Card.score > player2Card.score) {
+            this.player1Hand.unshift(player1Card);
+            this.player1Hand.unshift(player2Card);
+            console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
+            console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.")
+        }
+        else if (player1Card.score < player2Card.score) {
+            this.player2Hand.unshift(player2Card);
+            this.player2Hand.unshift(player1Card);
+            //      console.log("2 " + player2Card.score);
+            console.log("You played a " + player1Card.rank + " of " + player2Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
+            console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.")
+        }
+    }
+    play() {
+        while (this.player1Hand.length > 0 && this.player2Hand.length > 0) {
+            let player1Card = this.player1Hand.pop();
+            //   console.log(player1Card);
+            let player2Card = this.player2Hand.pop();
+            //   console.log(player2Card);
+            this.compareCards(player1Card, player2Card);
+        }
+    }
 
-//logic to compare cards
-function compareCards(player1Card, player2Card) {
-   if (player1Card.score > player2Card.score) {
-       player1Hand.unshift(player1Card,player2Card);
-       console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
-       console.log("You win the round. You now have " + player1Hand.length + " cards and the computer has " + player2Hand.length + " cards.")
-   }
-   else if (player1Card.score < player2Card.score) {
-       player2Hand.unshift(player1Card, player2Card)
- //      console.log("2 " + player2Card.score);
-       console.log("You played a " + player1Card.rank + " of " + player2Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
-       console.log("The computer wins the round. You now have " + player1Hand.length + " cards and the computer has " + player2Hand.length + " cards.")
-   }
-} 
-
-//Decide which hand has fewest cards to determine how many compairs can happen in each round
-let smallestHand = Math.min(player1Hand.length, player2Hand.length);
-console.log(smallestHand);
-
-
-for(let i = player1Hand.length; i > 0; i--) {
-    let player1Card = player1Hand.pop();
- //   console.log(player1Card);
-    let player2Card = player2Hand.pop();
- //   console.log(player2Card);
-    compareCards(player1Card, player2Card);
 }
-console.log(player1Hand);
-console.log(player2Hand);
+
+game = new Game();
+game.play();
+
+console.log(game.player1Hand);
+console.log(game.player2Hand);
 
 
 
