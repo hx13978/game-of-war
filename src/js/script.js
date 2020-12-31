@@ -62,12 +62,15 @@ player2Hand = deck.cards.slice(26,52);
 //logic to compare cards
 function compareCards(player1Card, player2Card) {
    if (player1Card.score > player2Card.score) {
- //      console.log("1 " + player1Card.score);
-       player1Hand.push(player1Card,player2Card);
+       player1Hand.unshift(player1Card,player2Card);
+       console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
+       console.log("You win the round. You now have " + player1Hand.length + " cards and the computer has " + player2Hand.length + " cards.")
    }
    else if (player1Card.score < player2Card.score) {
-       player2Hand.push(player1Card, player2Card)
+       player2Hand.unshift(player1Card, player2Card)
  //      console.log("2 " + player2Card.score);
+       console.log("You played a " + player1Card.rank + " of " + player2Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
+       console.log("The computer wins the round. You now have " + player1Hand.length + " cards and the computer has " + player2Hand.length + " cards.")
    }
 } 
 
@@ -76,7 +79,7 @@ let smallestHand = Math.min(player1Hand.length, player2Hand.length);
 console.log(smallestHand);
 
 
-for(let i = player1Hand.length - 1; i > 0; i--) {
+for(let i = player1Hand.length; i > 0; i--) {
     let player1Card = player1Hand.pop();
  //   console.log(player1Card);
     let player2Card = player2Hand.pop();
@@ -86,8 +89,7 @@ for(let i = player1Hand.length - 1; i > 0; i--) {
 console.log(player1Hand);
 console.log(player2Hand);
 
-let smallestHand1 = Math.min(player1Hand.length, player2Hand.length);
-console.log(smallestHand1);
+
 
 
 
