@@ -1,4 +1,4 @@
-alert("Hello there! Today you will be playing the card game of war against the computer. Good Luck!!");
+alert("Hello there! Today you will be playing the card game of war against the computer. Click the OK button to start...Good Luck!!");
 
 
 
@@ -74,7 +74,7 @@ class Game {
             console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit);
             console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
         }
-        else if (player1Card.score = player2Card.score) {
+        else if (player1Card.score === player2Card.score) {
             console.log("You played a " + player1Card.rank + " of " + player1Card.suit + " and the computer played a " + player2Card.rank + " of " + player2Card.suit + ". It's a tie, let's see who wins the war!");
             let player1Pile = [player1Card];
             let player2Pile = [player2Card];
@@ -107,10 +107,10 @@ class Game {
             console.log("You win the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
         }
         else {
-            console.log(this.player1Hand);
-            console.log(player1Pile);
-            console.log(this.player2Hand);
-            console.log(player2Pile);
+            //console.log(this.player1Hand);
+            //console.log(player1Pile);
+            //console.log(this.player2Hand);
+            //console.log(player2Pile);
 
             let player1Index = this.player1Hand.length - 5;
             let player1Tie = this.player1Hand[player1Index];
@@ -138,9 +138,10 @@ class Game {
                 console.log("You played a " + player1Tie.rank + " of " + player1Tie.suit + " and the computer played a " + player2Tie.rank + " of " + player2Tie.suit);
                 console.log("The computer wins the round. You now have " + this.player1Hand.length + " cards and the computer has " + this.player2Hand.length + " cards.");
             }
-            else if (player1Tie.score = player2Tie.score) {
+            else if (player1Tie.score === player2Tie.score) {
                 player1Pile = player1Pile.concat(this.player1Hand.splice(player1Index, 4));
                 player2Pile = player2Pile.concat(this.player2Hand.splice(player2Index, 4));
+                console.log("We have another tie! You played a " + player1Tie.rank + " of " + player1Tie.suit + " and the computer played a " + player2Tie.rank + " of " + player2Tie.suit + ". Lets battle again!");
                 this.tieBreaker(player1Pile, player2Pile);
             }
         }
